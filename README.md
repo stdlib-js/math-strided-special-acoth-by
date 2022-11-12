@@ -112,7 +112,7 @@ acothBy( x.length, x, 1, y, 1, accessor, context );
 // y => [ ~-0.203, ~-0.255, ~-0.347, -Infinity, Infinity ]
 
 var cnt = context.count;
-// returns 8
+// returns 5
 ```
 
 The `N` and `stride` parameters determine which elements in `x` and `y` are accessed at runtime. For example, to index every other value in `x` and to index the first `N` elements of `y` in reverse order,
@@ -218,8 +218,9 @@ acothBy.ndarray( 3, x, 2, 1, y, -1, y.length-1, accessor );
 <!-- eslint no-undef: "error" -->
 
 ```javascript
-var uniform = require( '@stdlib/random-base-uniform' );
+var uniform = require( '@stdlib/random-base-uniform' ).factory;
 var filledarray = require( '@stdlib/array-filled' );
+var filledarrayBy = require( '@stdlib/array-filled-by' );
 var acothBy = require( '@stdlib/math-strided-special-acoth-by' );
 
 function accessor( v, i ) {
@@ -230,14 +231,10 @@ function accessor( v, i ) {
     return v;
 }
 
-var x = filledarray( 0.0, 10, 'generic' );
-var y = filledarray( null, 10, 'generic' );
-
-var i;
-for ( i = 0; i < x.length; i++ ) {
-    x[ i ] = uniform( 1.0, 5.0 );
-}
+var x = filledarrayBy( 10, 'generic', uniform( 1.0, 5.0 ) );
 console.log( x );
+
+var y = filledarray( null, 10, 'generic' );
 console.log( y );
 
 acothBy.ndarray( x.length, x, 1, 0, y, -1, y.length-1, accessor );
@@ -274,11 +271,6 @@ For more information on the project, filing bug reports and feature requests, an
 [![Chat][chat-image]][chat-url]
 
 ---
-
-## License
-
-See [LICENSE][stdlib-license].
-
 
 ## Copyright
 
@@ -322,8 +314,6 @@ Copyright &copy; 2016-2022. The Stdlib [Authors][stdlib-authors].
 [umd-url]: https://github.com/stdlib-js/math-strided-special-acoth-by/tree/umd
 [esm-url]: https://github.com/stdlib-js/math-strided-special-acoth-by/tree/esm
 [branches-url]: https://github.com/stdlib-js/math-strided-special-acoth-by/blob/main/branches.md
-
-[stdlib-license]: https://raw.githubusercontent.com/stdlib-js/math-strided-special-acoth-by/main/LICENSE
 
 [mdn-array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
 
